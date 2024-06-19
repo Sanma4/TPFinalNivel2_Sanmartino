@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class categoria
+    public class categoria
     {
         public int Id { get; set; }
         public string descripcion { get; set; }
+
+        public override string ToString()
+        {
+            return descripcion;
+        }
 
     }
 }

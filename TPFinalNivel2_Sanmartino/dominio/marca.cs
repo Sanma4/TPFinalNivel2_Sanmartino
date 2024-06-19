@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class marca
+    public class marca
     {
         public int Id { get; set; }
         public string descripcion { get; set; }
+        public override string ToString()
+        {
+            return descripcion;
+        }
     }
 }

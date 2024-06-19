@@ -7,7 +7,7 @@ using dominio;
 
 namespace negocio
 {
-    internal class marcaNegocio
+    public class marcaNegocio
     {
     }
 }

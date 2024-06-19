@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class articulo
+    public class articulo
     {
         public int Id { get; set; }
-        public string codigo { get; set; }
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
-        public marca idMarca { get; set; }
-        public categoria idCategoria { get; set; }
+        public string Codigo { get; set; }
+        public string Nombre { get; set; }
+        public string Descripcion { get; set; }
+        public marca Marca { get; set; }
+        public categoria Categoria { get; set; }
         public string urlImg { get; set; }
-        public double precio { get; set; }
+        public decimal Precio { get; set; }
     }
 }
