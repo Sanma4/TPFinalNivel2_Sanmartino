@@ -70,5 +70,54 @@ namespace TrabajoFinal
                 cargarImagen(seleccionado.urlImg);
             }
         }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAgregar agregar = new frmAgregar();
+            agregar.ShowDialog();
+            cargar();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            articulo seleccionado;
+            seleccionado = (articulo)dgvCatalogo.CurrentRow.DataBoundItem;
+            frmAgregar modificar = new frmAgregar(seleccionado);
+            modificar.ShowDialog();
+            cargar();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            eliminar();
+        }
+
+        private void eliminar()
+        {
+            articuloNegocio negocio = new articuloNegocio();
+            articulo seleccionado = new articulo();
+
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Estás seguro que quieres eliminarlo? No se podrá recuperar", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (articulo)dgvCatalogo.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado.Id);
+                    cargar();
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
