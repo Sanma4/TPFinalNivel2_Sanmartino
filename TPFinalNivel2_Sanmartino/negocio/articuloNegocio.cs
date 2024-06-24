@@ -130,5 +130,123 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<articulo> filtrar(string criterio, string parametro, string filtro)
+        {
+            List<articulo> lista = new List<articulo>();
+            acessoDatos datos = new acessoDatos();
+
+            try
+            {
+                string consulta = "Select A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, A.IdCategoria, M.Descripcion as Marca, C.Descripcion as  Dispositivo, A.ImagenUrl, A.Precio from ARTICULOS A, MARCAS M, CATEGORIAS C where M.Id = A.IdMarca And C.Id = A.IdCategoria And ";
+
+                switch (criterio)
+                {
+                    case "Codigo":
+                        switch (parametro)
+                        {
+                            case "Empieza":
+                                consulta += "codigo like '" + filtro + "%'";
+                                break;
+                            case "Contiene":
+                                consulta += "codigo like '%" + filtro + "%'";
+                                break;
+                            case "Termina":
+                                consulta += "codigo like '%" + filtro + "'";
+                                break;
+                        }
+                        break;
+
+                    case "Nombre":
+                        switch (parametro)
+                        {
+                            case "Empieza":
+                                consulta += "nombre like '" + filtro + "%'";
+                                break;
+                            case "Contiene":
+                                consulta += "nombre like '%" + filtro + "%'";
+                                break;
+                            case "Termina":
+                                consulta += "nombre like '%" + filtro + "'";
+                                break;
+                        }
+                        break;
+
+                    case "Marca":
+                        switch (parametro)
+                        {
+                            case "Samsung":
+                                consulta += "M.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Apple":
+                                consulta += "M.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Sony":
+                                consulta += "M.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Huawei":
+                                consulta += "M.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Motorola":
+                                consulta += "M.Descripcion like '" + parametro + "'";
+                                break;
+
+                        }
+                        break;
+
+                    case "Categoria":
+                        switch (parametro)
+                        {
+                            case "Celulares":
+                                consulta += "C.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Televisores":
+                                consulta += "C.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Media":
+                                consulta += "C.Descripcion like '" + parametro + "'";
+                                break;
+                            case "Audio":
+                                consulta += "C.Descripcion like '" + parametro + "'";
+                                break;
+                        }
+                        break;
+
+                }
+                datos.setarConsulta(consulta);
+                datos.ejecutarLector();
+                while (datos.Lector.Read())
+                {
+                    articulo aux = new articulo();
+
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Codigo = (string)datos.Lector["Codigo"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Marca = new marca();
+                    aux.Marca.descripcion = (string)datos.Lector["Marca"];
+                    aux.Marca.Id = (int)datos.Lector["idMarca"];
+                    aux.Categoria = new categoria();
+                    aux.Categoria.descripcion = (string)datos.Lector["Dispositivo"];
+                    aux.Categoria.Id = (int)datos.Lector["idCategoria"];
+                    aux.urlImg = (string)datos.Lector["imagenUrl"];
+                    aux.Precio = (decimal)datos.Lector["Precio"];
+
+                    lista.Add(aux);
+                }
+
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

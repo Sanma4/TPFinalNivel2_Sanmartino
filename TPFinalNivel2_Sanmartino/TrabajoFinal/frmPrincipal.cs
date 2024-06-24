@@ -23,6 +23,10 @@ namespace TrabajoFinal
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
             cargar();
+            cboCriterio.Items.Add("Codigo");
+            cboCriterio.Items.Add("Nombre");
+            cboCriterio.Items.Add("Marca");
+            cboCriterio.Items.Add("Categoria");
         }
 
         private void cargar()
@@ -115,9 +119,88 @@ namespace TrabajoFinal
             }
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboCriterio_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+            if (cboCriterio.SelectedItem.ToString() == "Codigo")
+            {
+                cboParametro.Items.Clear();
+                cboParametro.Items.Add("Empieza");
+                cboParametro.Items.Add("Contiene");
+                cboParametro.Items.Add("Termina");
+                mostrarFiltro();
+            }
+            else if (cboCriterio.SelectedItem.ToString() == "Nombre")
+            {
+                cboParametro.Items.Clear();
+                cboParametro.Items.Add("Empieza");
+                cboParametro.Items.Add("Contiene");
+                cboParametro.Items.Add("Termina");
+                mostrarFiltro();
 
+            }
+            else if (cboCriterio.SelectedItem.ToString() == "Marca")
+            {
+                cboParametro.Items.Clear();
+                cboParametro.Items.Add("Samsung");
+                cboParametro.Items.Add("Apple");
+                cboParametro.Items.Add("Sony");
+                cboParametro.Items.Add("Huawei");
+                cboParametro.Items.Add("Motorola");
+                ocultarFiltro();
+
+
+
+            }
+            else if(cboCriterio.SelectedItem.ToString() == "Categoria")
+            {
+                cboParametro.Items.Clear();
+                cboParametro.Items.Add("Celulares");
+                cboParametro.Items.Add("Televisores");
+                cboParametro.Items.Add("Media");
+                cboParametro.Items.Add("Audio");
+                ocultarFiltro();
+
+            }
+
+        }
+
+        private void ocultarFiltro()
+        {
+            txtFiltro.Visible = false;
+            lblFiltro.Visible = false;
+        }
+        private void mostrarFiltro()
+        {
+            txtFiltro.Visible = true;
+            lblFiltro.Visible = true;
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            articuloNegocio negocio = new articuloNegocio();
+            try
+            {
+                string criterio = cboCriterio.SelectedItem.ToString();
+                string parametro = cboParametro.SelectedItem.ToString();
+                string filtro = txtFiltro.Text;
+                dgvCatalogo.DataSource = negocio.filtrar(criterio, parametro, filtro);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {
+            articulo detalle;
+            detalle = (articulo)dgvCatalogo.CurrentRow.DataBoundItem;
+            frmAgregar modificar = new frmAgregar(detalle);
+            modificar.ShowDialog();
+            cargar();
         }
     }
 }
