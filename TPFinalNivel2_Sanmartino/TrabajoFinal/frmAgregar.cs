@@ -191,7 +191,7 @@ namespace TrabajoFinal
         private void btnAgregarImg_Click(object sender, EventArgs e)
         {
             archivo = new OpenFileDialog();
-            archivo.Filter = "JPEG|*.JPEG |JPG|*.jpg |png|*.png |Todos los archivos| *.JPEG; *.jpg; *.png";
+            archivo.Filter = "JPEG|*.JPEG;|JPG|*.jpg;|png|*.png;|Todos los archivos| *.JPEG; *.jpg; *.png";
             List<OpenFileDialog> lista = new List<OpenFileDialog>();
             if(archivo.ShowDialog() == DialogResult.OK)
             {
