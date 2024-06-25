@@ -220,6 +220,12 @@ namespace TrabajoFinal
 
         private void btnDetalle_Click(object sender, EventArgs e)
         {
+
+            if (dgvCatalogo.CurrentRow == null)
+            {
+                dgvCatalogo.CurrentCell = dgvCatalogo.Rows[0].Cells[1];
+            }
+
             articulo detalle;
             bool modoDetalle = true;
             detalle = (articulo)dgvCatalogo.CurrentRow.DataBoundItem;
