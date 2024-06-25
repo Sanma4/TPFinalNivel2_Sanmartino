@@ -54,6 +54,10 @@ namespace TrabajoFinal
             btnAceptar.Enabled = false;
             btnCancelar.Text = "Cerrar";
             cargarImagen(txtImg.Text);
+            btnAgregarImg.Visible = false;
+            lblObligatorio.Visible = false;
+            label1.Visible = false;
+            label2.Visible = false;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

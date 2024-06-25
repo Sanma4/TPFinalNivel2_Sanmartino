@@ -49,6 +49,7 @@
             // 
             // dgvCatalogo
             // 
+            this.dgvCatalogo.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.dgvCatalogo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCatalogo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvCatalogo.Location = new System.Drawing.Point(157, 12);
@@ -148,16 +149,19 @@
             // 
             // btnAgregar
             // 
+            this.btnAgregar.AllowDrop = true;
+            this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnAgregar.Location = new System.Drawing.Point(41, 35);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 0;
             this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnModificar
             // 
+            this.btnModificar.AllowDrop = true;
             this.btnModificar.Location = new System.Drawing.Point(41, 110);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
@@ -168,6 +172,7 @@
             // 
             // btnEliminar
             // 
+            this.btnEliminar.AllowDrop = true;
             this.btnEliminar.Location = new System.Drawing.Point(41, 189);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(75, 23);
@@ -178,6 +183,7 @@
             // 
             // btnDetalle
             // 
+            this.btnDetalle.AllowDrop = true;
             this.btnDetalle.Location = new System.Drawing.Point(41, 264);
             this.btnDetalle.Name = "btnDetalle";
             this.btnDetalle.Size = new System.Drawing.Size(75, 23);
@@ -190,6 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ClientSize = new System.Drawing.Size(1245, 570);
             this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.btnEliminar);
