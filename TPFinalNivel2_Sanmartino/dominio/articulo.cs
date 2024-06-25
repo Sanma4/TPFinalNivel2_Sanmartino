@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace dominio
 {
     public class articulo
@@ -17,5 +18,7 @@ namespace dominio
         public categoria Categoria { get; set; }
         public string urlImg { get; set; }
         public decimal Precio { get; set; }
+
+       
     }
 }

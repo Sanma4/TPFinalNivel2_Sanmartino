@@ -45,6 +45,10 @@
             this.pbxAgregar = new System.Windows.Forms.PictureBox();
             this.cboMarca = new System.Windows.Forms.ComboBox();
             this.cboCategoria = new System.Windows.Forms.ComboBox();
+            this.lblObligatorio = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnAgregarImg = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxAgregar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -194,11 +198,55 @@
             this.cboCategoria.Size = new System.Drawing.Size(222, 21);
             this.cboCategoria.TabIndex = 18;
             // 
+            // lblObligatorio
+            // 
+            this.lblObligatorio.AutoSize = true;
+            this.lblObligatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblObligatorio.Location = new System.Drawing.Point(356, 32);
+            this.lblObligatorio.Name = "lblObligatorio";
+            this.lblObligatorio.Size = new System.Drawing.Size(20, 25);
+            this.lblObligatorio.TabIndex = 19;
+            this.lblObligatorio.Text = "*";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(356, 83);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 25);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "*";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(356, 318);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(20, 25);
+            this.label2.TabIndex = 21;
+            this.label2.Text = "*";
+            // 
+            // btnAgregarImg
+            // 
+            this.btnAgregarImg.Location = new System.Drawing.Point(356, 373);
+            this.btnAgregarImg.Name = "btnAgregarImg";
+            this.btnAgregarImg.Size = new System.Drawing.Size(24, 20);
+            this.btnAgregarImg.TabIndex = 22;
+            this.btnAgregarImg.Text = "+";
+            this.btnAgregarImg.UseVisualStyleBackColor = true;
+            this.btnAgregarImg.Click += new System.EventHandler(this.btnAgregarImg_Click);
+            // 
             // frmAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(757, 486);
+            this.Controls.Add(this.btnAgregarImg);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblObligatorio);
             this.Controls.Add(this.cboCategoria);
             this.Controls.Add(this.cboMarca);
             this.Controls.Add(this.pbxAgregar);
@@ -249,5 +297,9 @@
         private System.Windows.Forms.PictureBox pbxAgregar;
         private System.Windows.Forms.ComboBox cboMarca;
         private System.Windows.Forms.ComboBox cboCategoria;
+        private System.Windows.Forms.Label lblObligatorio;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnAgregarImg;
     }
 }

@@ -4,11 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+
 
 namespace TrabajoFinal
 {
@@ -16,6 +20,10 @@ namespace TrabajoFinal
     public partial class frmAgregar : Form
     {
         private articulo articulo = null;
+        private bool modoDetalle = false;
+        private OpenFileDialog archivo = null;
+
+
         public frmAgregar()
         {
             InitializeComponent();
@@ -26,6 +34,28 @@ namespace TrabajoFinal
             this.articulo = articulo;
             Text = "Modificar artículo";
         }
+        public frmAgregar(articulo articulo, bool modoDetalle)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Detalle artículo";
+            this.modoDetalle = modoDetalle;
+        }
+
+        private void configurarOnlyRead()
+        {
+            cboMarca.Enabled = false;
+            cboCategoria.Enabled = false;
+            txtCodigo.Enabled = false;
+            txtNombre.Enabled = false;
+            txtDescripcion.Enabled = false;
+            txtImg.Enabled = false;
+            txtPrecio.Enabled = false;
+            btnAceptar.Enabled = false;
+            btnCancelar.Text = "Cerrar";
+            cargarImagen(txtImg.Text);
+        }
+
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
@@ -36,28 +66,48 @@ namespace TrabajoFinal
             articuloNegocio negocio = new articuloNegocio();
             try
             {
+
                 if (articulo == null)
                     articulo = new articulo();
-                
-                articulo.Codigo = txtCodigo.Text;
-                articulo.Nombre = txtNombre.Text;
-                articulo.Descripcion = txtDescripcion.Text;
-                articulo.urlImg = txtImg.Text;
-                articulo.Precio = decimal.Parse(txtPrecio.Text);
-                articulo.Marca = (marca)cboMarca.SelectedItem;
-                articulo.Categoria = (categoria)cboCategoria.SelectedItem;
 
-                if (articulo.Id != 0)
+                if (!ValidarCampos())
                 {
-                    negocio.Modificar(articulo);
-                    MessageBox.Show("Modificado exitosamente");
+                    MessageBox.Show("Completa todos los campos");
                 }
                 else
                 {
-                    negocio.agregar(articulo);
-                    MessageBox.Show("Agregado exitosamente");
-                }
 
+                    articulo.Codigo = txtCodigo.Text;
+                    articulo.Nombre = txtNombre.Text;
+                    articulo.Descripcion = txtDescripcion.Text;
+                    articulo.urlImg = txtImg.Text;
+                    articulo.Precio = decimal.Parse(txtPrecio.Text);
+                    articulo.Marca = (marca)cboMarca.SelectedItem;
+                    articulo.Categoria = (categoria)cboCategoria.SelectedItem;
+
+
+                    if (articulo.Id != 0)
+                    {
+                        negocio.Modificar(articulo);
+                        MessageBox.Show("Modificado exitosamente");
+                    }
+                    else
+                    {
+                        negocio.agregar(articulo);
+                        MessageBox.Show("Agregado exitosamente");
+                    }
+
+                    if(archivo != null && !(txtImg.Text.ToLower().Contains("http")))
+                    {
+                        string destinationPath = Path.Combine(ConfigurationManager.AppSettings["images-folder"], Path.GetFileName(archivo.FileName));
+                        if (File.Exists(destinationPath))
+                        {
+                            File.Delete(destinationPath); 
+                        }
+                        File.Copy(archivo.FileName, destinationPath);
+                    }
+                }
+                
                 
             }
             catch (Exception ex)
@@ -67,8 +117,10 @@ namespace TrabajoFinal
             }
             finally
             {
-                Close();
+                if(!ValidarCampos() == false)
+                    Close();
             }
+
         }
 
         private void frmAgregar_Load(object sender, EventArgs e)
@@ -84,7 +136,6 @@ namespace TrabajoFinal
                 cboCategoria.DataSource = categoriaNegocio.listar();
                 cboCategoria.ValueMember = "Id";
                 cboCategoria.DisplayMember = "Descripcion";
-
                 if (articulo != null)
                 {
                     txtCodigo.Text = articulo.Codigo;
@@ -92,10 +143,12 @@ namespace TrabajoFinal
                     txtDescripcion.Text = articulo.Descripcion;
                     cboMarca.SelectedValue = articulo.Marca.Id;
                     cboCategoria.SelectedValue = articulo.Categoria.Id;
-                    Console.WriteLine($"Marca Id: {articulo.Marca.Id}, Categoria Id: {articulo.Categoria.Id}");
                     txtImg.Text = articulo.urlImg;
-                    cargarImagen(articulo.urlImg);
                     txtPrecio.Text = articulo.Precio.ToString();
+                }
+                if(modoDetalle)
+                {
+                    configurarOnlyRead();
                 }
             }
             catch (Exception ex)
@@ -105,7 +158,6 @@ namespace TrabajoFinal
                 
             }
         }
-
 
         private void cargarImagen(string urlImg)
         {
@@ -124,6 +176,30 @@ namespace TrabajoFinal
         private void txtImg_Leave(object sender, EventArgs e)
         {
             cargarImagen(txtImg.Text);
+        }
+        private bool ValidarCampos()
+        {
+            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+                return false;
+            if (string.IsNullOrWhiteSpace(txtPrecio.Text))
+                return false;
+            return true;
+        }
+
+        private void btnAgregarImg_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "JPEG|*.JPEG |JPG|*.jpg |png|*.png |Todos los archivos| *.JPEG; *.jpg; *.png";
+            List<OpenFileDialog> lista = new List<OpenFileDialog>();
+            if(archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtImg.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);
+
+                lista.Add(archivo);
+            }
         }
     }
 }

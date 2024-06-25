@@ -124,14 +124,17 @@ namespace TrabajoFinal
             
             if (cboCriterio.SelectedItem.ToString() == "Codigo")
             {
+                cboParametro.Text = "";
                 cboParametro.Items.Clear();
                 cboParametro.Items.Add("Empieza");
                 cboParametro.Items.Add("Contiene");
                 cboParametro.Items.Add("Termina");
                 mostrarFiltro();
+                
             }
             else if (cboCriterio.SelectedItem.ToString() == "Nombre")
             {
+                cboParametro.Text = "";
                 cboParametro.Items.Clear();
                 cboParametro.Items.Add("Empieza");
                 cboParametro.Items.Add("Contiene");
@@ -141,6 +144,7 @@ namespace TrabajoFinal
             }
             else if (cboCriterio.SelectedItem.ToString() == "Marca")
             {
+                txtFiltro.Text = "";
                 cboParametro.Items.Clear();
                 cboParametro.Items.Add("Samsung");
                 cboParametro.Items.Add("Apple");
@@ -154,6 +158,7 @@ namespace TrabajoFinal
             }
             else if(cboCriterio.SelectedItem.ToString() == "Categoria")
             {
+                txtFiltro.Text = "";
                 cboParametro.Items.Clear();
                 cboParametro.Items.Add("Celulares");
                 cboParametro.Items.Add("Televisores");
@@ -164,16 +169,29 @@ namespace TrabajoFinal
             }
 
         }
-
+        private bool validarFiltro()
+        {
+            if (cboCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debes ingresar el criterio a filtrar.");
+                return true;
+            }
+            if (cboParametro.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debes ingresar un parametro para filtrar.");
+                return true;
+            }
+            return false;
+        }
         private void ocultarFiltro()
         {
-            txtFiltro.Visible = false;
-            lblFiltro.Visible = false;
+            txtFiltro.Enabled = false;
+            lblFiltro.Enabled = false;
         }
         private void mostrarFiltro()
         {
-            txtFiltro.Visible = true;
-            lblFiltro.Visible = true;
+            txtFiltro.Enabled = true;
+            lblFiltro.Enabled = true;
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
@@ -181,6 +199,9 @@ namespace TrabajoFinal
             articuloNegocio negocio = new articuloNegocio();
             try
             {
+                if (validarFiltro())
+                    return;
+
                 string criterio = cboCriterio.SelectedItem.ToString();
                 string parametro = cboParametro.SelectedItem.ToString();
                 string filtro = txtFiltro.Text;
@@ -197,8 +218,9 @@ namespace TrabajoFinal
         private void btnDetalle_Click(object sender, EventArgs e)
         {
             articulo detalle;
+            bool modoDetalle = true;
             detalle = (articulo)dgvCatalogo.CurrentRow.DataBoundItem;
-            frmAgregar modificar = new frmAgregar(detalle);
+            frmAgregar modificar = new frmAgregar(detalle, modoDetalle);
             modificar.ShowDialog();
             cargar();
         }
