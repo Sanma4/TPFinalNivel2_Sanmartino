@@ -27,6 +27,7 @@ namespace TrabajoFinal
             cboCriterio.Items.Add("Nombre");
             cboCriterio.Items.Add("Marca");
             cboCriterio.Items.Add("Categoria");
+            dgvCatalogo.Columns["Precio"].DefaultCellStyle.Format = "00,00";
         }
 
         private void cargar()
