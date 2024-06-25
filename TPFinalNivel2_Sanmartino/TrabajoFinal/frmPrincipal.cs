@@ -144,6 +144,7 @@ namespace TrabajoFinal
             }
             else if (cboCriterio.SelectedItem.ToString() == "Marca")
             {
+                cboParametro.Text = "";
                 txtFiltro.Text = "";
                 cboParametro.Items.Clear();
                 cboParametro.Items.Add("Samsung");
@@ -158,6 +159,7 @@ namespace TrabajoFinal
             }
             else if(cboCriterio.SelectedItem.ToString() == "Categoria")
             {
+                cboParametro.Text = "";
                 txtFiltro.Text = "";
                 cboParametro.Items.Clear();
                 cboParametro.Items.Add("Celulares");
